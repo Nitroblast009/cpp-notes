@@ -1,7 +1,8 @@
 /*
     - Function body must be defined globally
     - Inline keyword makes calling a function more assembly code but more efficient (as function calling overheaded is skipped)
-    - Is up to the compiler to inline function, but it usually does
+    - Is up to the compiler to inline certain functions
+    - Should only inline functions that are small and used repeatedly
     - Doesn't matter what order static and inline keywords are in but I'll put static/extern first
 */
 #include <iostream>

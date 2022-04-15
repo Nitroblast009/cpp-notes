@@ -3,6 +3,7 @@
     - Operator overloading means changing the behavior of an operator, giving us full control
     - Operator overloading should be minimal and make sense
     - The operators ::, ., .*, and ?: cannot be overloaded
+    - :: operator access static members/functions/vars of classes or enums
     - New operators can't be created and operator precedence order cannot be changed either
 */
 #include <iostream>
@@ -44,7 +45,7 @@ inline std::ostream &operator<<(std::ostream &stream, const MyVector &v) // Over
     return stream;
 }
 
-// int operator+(int a, char b) {}          // This doesn't work cuz need to have at least one param as a class/enum/struct for operator overloading outside of any other types; if this did work, then ppl could mutate the C++ language itself which strictly goes against the design principles
+// MyVector operator+(int a, char b) {} // This doesn't work cuz need to have at least one param as a class/enum/struct for operator overloading outside of any other types; if this did work, then ppl could mutate the C++ language itself which strictly goes against the design principles
 
 int main()
 {
