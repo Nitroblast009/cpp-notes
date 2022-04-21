@@ -1,6 +1,3 @@
-/*
-    - Friendship & inheritance
- */
 #include <iostream>
 #include <string>
 

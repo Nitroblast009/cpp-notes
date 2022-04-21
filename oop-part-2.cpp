@@ -3,6 +3,7 @@
     - Shallow copy does not copy values at pointer but just the same pointer address
     - Three types of class constructors: constructors, destructors, and copy constructors
     - Default copy constructor C++ provides just shallow copies class (MyClass(const MyClass& other) : param1(other.param1), param2(other.param2)... {})
+    - Destructor is just a regular function that gets called when an object gets deleted; it doesn't actually delete the object itself
     */
 #include <iostream>
 
@@ -22,17 +23,27 @@ public:
     Point() : x(), y(), ptrX(&this->x), ptrY(&this->y) {}                               // Empty brackets in member initializer lists mean that attributes will be given a default value based on their type; for numerical types, that value is 0
 };
 
-class CopyablePoint
+class CopyablePoint : public Point
+{
+public:
+    CopyablePoint(int userX, int userY) : Point(userX, userY) {}
+    CopyablePoint() : Point() {}
+
+    CopyablePoint(const CopyablePoint &other) : Point(other.x, other.y) // Member initializer list only works for the class which directly has said attributes
+    {
+        }
+};
+
+class DestructablePoint
 {
 public:
     int x, y;
-    int *ptrX, *ptrY;
 
-    CopyablePoint(int userX, int userY) : x(userX), y(userY), ptrX(&this->x), ptrY(&this->y) {}
-    CopyablePoint() : x(), y(), ptrX(&this->x), ptrY(&this->y) {}
+    DestructablePoint() : x(), y() {}
 
-    CopyablePoint(const CopyablePoint &other) : x(other.x), y(other.y), ptrX(&this->x), ptrY(&this->y)
+    ~DestructablePoint()
     {
+        std::cout << "I have been deconstructed." << std::endl;
     }
 };
 
@@ -65,4 +76,13 @@ int main()
     *cp2.ptrY = 3;
 
     std::cout << p1 << p2 << cp1 << cp2;
+
+    DestructablePoint *dp1 = new DestructablePoint();
+    delete dp1; // Destructor called because of deletion
+
+    {
+        DestructablePoint dp2 = DestructablePoint();
+    } // Destructor gets called here at the end of scope
+
+    DestructablePoint dp3 = DestructablePoint(); // Destructor gets called here before main function ends
 }

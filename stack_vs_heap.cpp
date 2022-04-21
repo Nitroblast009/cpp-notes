@@ -5,10 +5,17 @@
 #include <iostream>
 #include <string>
 
+int* getArr() {
+    int arr[20]; // The memory here is on the stack, meaning it gets destroyed by the end of this function
+    return arr;
+}
+
 int main()
 {
     int value = 5;          // Create new int in stack memory
     int arr[3] = {1, 2, 3}; // Pointer to stack memory
+
+    int* arrPtr = getArr(); // Retuns pointer to deleted memory (cuz it was on the stack)
 
     int *heapValue = new int; // Create new int in heap memory (new keyword is usually used for heap memory)
     *heapValue = 5;
