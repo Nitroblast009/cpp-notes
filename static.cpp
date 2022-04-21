@@ -11,20 +11,21 @@ class Statify
 {
 public:
     static int x, y;
-    void printStatic()
+    void printStatic() const
     {
         std::cout << "(" << Statify::x << ", " << Statify::y << ")\n";
     }
+    typedef double FLOAT2; // Scoped typedef (like in namespace)
 };
 
-// IMPORTANT: NEED STATIC VARIABLE DEFINITIONS (LIKE GLOBAL VARS)
+// IMPORTANT: INITIALIZATION OF STATIC MEMBERS (REQUIRED)
 int Statify::x;
 int Statify::y;
 
 namespace Namify // Static values kinda like this
 {
     int x, y;
-    inline void printNamespace() const
+    inline void printNamespace()
     {
         std::cout << "(" << Namify::x << ", " << Namify::y << ")";
     }
@@ -43,4 +44,6 @@ int main()
     Namify::x = 2;
     Namify::y = 5;
     Namify::printNamespace();
+
+    Statify::FLOAT2 d = 2.6;
 }
