@@ -4,6 +4,7 @@
     - Rvalues are temporary resources values that are just plain values of the system and can't be changed
     - & means lvalue reference
     - && means rvalue reference
+    - Anything that has a name is an lvalue (including rvalue references!)
 */
 
 #include <iostream>
@@ -70,4 +71,12 @@ int main()
     {
         std::cout << i << std::endl;
     }
+
+    rvalueReference(10); // Even though val is originally a reference to the rvalue of 10, it gets changed to 19 in the function
+    int e = c;           // Works cuz lvalue e is being assigned an rvalue
+    std::cout << e << std::endl;
+
+    int &&x = 21;               // x is actually an lvalue that is of type rvalue reference to int
+    rvalueReference((int &&)x); // Need to actually cast x as an rvalue reference, as it is passed in by default as an lvalue
+    // rvalueReference(e); // Does not work cuz can't make rvalue referece to an lvalue
 }
